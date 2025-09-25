@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 # get user model object
-User = get_user_model()
+# User = get_user_model()
 
 class Post(models.Model):
     """
@@ -10,7 +10,7 @@ class Post(models.Model):
     """
     image = models.ImageField(upload_to='blog/',null=True, blank=True)
     title = models.CharField(max_length=250)
-    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    author = models.ForeignKey('accounts.Profile',on_delete=models.CASCADE)
     content = models.TextField()
     category = models.ForeignKey('Category',on_delete=models.SET_NULL,null=True)
     status = models.BooleanField(default=False)
