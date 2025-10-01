@@ -35,6 +35,9 @@ class IndexView(TemplateView):
 
 
 class PostListView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+    """
+    CBV for getting post list
+    """
     permission_required = 'blog:post_view'
     # model = Post
     queryset = Post.objects.filter(status=True)
@@ -49,6 +52,9 @@ class PostListView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
  
 
 class PostDetailView(LoginRequiredMixin,DetailView):
+    """
+    CBV for getting post detail
+    """
     model = Post
     context_object_name = 'post'
 
@@ -66,6 +72,9 @@ class PostCreateView(FormView):
 """
 
 class PostCreateView(LoginRequiredMixin,CreateView):
+    """
+    creating post
+    """
     model = Post
     # fields = ['author', 'status', 'title', 'content', 'category', 'published_date']
     form_class = PostForm
@@ -76,11 +85,17 @@ class PostCreateView(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
     
 class PostEditView(LoginRequiredMixin,UpdateView):
+    """ 
+        updating post 
+    """
     model = Post
     form_class = PostForm
     success_url = "/blog/post/"
 
 class PostDeleteView(LoginRequiredMixin,DeleteView):
+    """
+      Delete post 
+    """
     model = Post
     success_url = "/blog/post/"
 
