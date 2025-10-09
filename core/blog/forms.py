@@ -1,11 +1,12 @@
 from django import forms
 from .models import Post
 
-class PostForm(forms.ModelForm):
 
+class PostForm(forms.ModelForm):
     """
     creating post form class
     """
+
     class Meta:
         model = Post
-        fields = ['status', 'title', 'content', 'category', 'published_date']
+        fields = ["status", "title", "content", "category", "published_date"]

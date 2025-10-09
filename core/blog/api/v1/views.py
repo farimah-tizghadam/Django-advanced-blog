@@ -3,18 +3,23 @@ from rest_framework.response import Response
 from .serializers import PostSerializer, CategorySerializer
 from blog.models import Post, Category
 from rest_framework import status, mixins
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+)
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (
+    GenericAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 from rest_framework import viewsets
 from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .paginations import DefaultPagination
 from .filters import PostFilter
-
-
 
 
 """@api_view(["GET", "POST"])
@@ -80,7 +85,7 @@ def post_detail_view(request, id):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)'''
-         
+
 
 '''class PostListView(GenericAPIView):
 
@@ -108,13 +113,11 @@ def post_detail_view(request, id):
         return self.create(request, *args, **kwargs)"""
 
 
-
 class PostListView(ListCreateAPIView):
-    
+
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
-
 
 
 '''class PostDetail(APIView):
@@ -205,13 +208,10 @@ class PostModelViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.filter(status=True)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     # filterset_fields = ['author', 'category']
-    search_fields = ['title', 'content']
-    ordering_fields = ['published_date']
+    search_fields = ["title", "content"]
+    ordering_fields = ["published_date"]
     pagination_class = DefaultPagination
     filterset_class = PostFilter
-
-
-
 
 
 class CategoryModelViewSet(viewsets.ModelViewSet):

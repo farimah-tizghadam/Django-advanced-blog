@@ -1,23 +1,34 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    FormView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.shortcuts import get_list_or_404
 from .models import Post
 from .forms import PostForm
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 
 
 class IndexView(TemplateView):
     """
     class base view to show index page
     """
-    template_name = 'index.html'
-    
+
+    template_name = "index.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['name'] = 'farimah'
+        context["name"] = "farimah"
         return context
-    
+
 
 """class base view
 
@@ -34,29 +45,31 @@ class IndexView(TemplateView):
         return super().get_redirect_url(*args, **kwargs)"""
 
 
-class PostListView(PermissionRequiredMixin,LoginRequiredMixin,ListView):
+class PostListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     """
     CBV for getting post list
     """
-    permission_required = 'blog:post_view'
+
+    permission_required = "blog:post_view"
     # model = Post
     queryset = Post.objects.filter(status=True)
     paginate_by = 2
-    ordering = '-id'
+    ordering = "-id"
 
     # def get_queryset(self):
     #     posts = Post.objects.all()
     #     return posts
 
-    context_object_name = 'posts'
- 
+    context_object_name = "posts"
 
-class PostDetailView(LoginRequiredMixin,DetailView):
+
+class PostDetailView(LoginRequiredMixin, DetailView):
     """
     CBV for getting post detail
     """
+
     model = Post
-    context_object_name = 'post'
+    context_object_name = "post"
 
 
 """
@@ -71,10 +84,12 @@ class PostCreateView(FormView):
 
 """
 
-class PostCreateView(LoginRequiredMixin,CreateView):
+
+class PostCreateView(LoginRequiredMixin, CreateView):
     """
     creating post
     """
+
     model = Post
     # fields = ['author', 'status', 'title', 'content', 'category', 'published_date']
     form_class = PostForm
@@ -83,19 +98,22 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
-class PostEditView(LoginRequiredMixin,UpdateView):
-    """ 
-        updating post 
+
+
+class PostEditView(LoginRequiredMixin, UpdateView):
     """
+    updating post
+    """
+
     model = Post
     form_class = PostForm
     success_url = "/blog/post/"
 
-class PostDeleteView(LoginRequiredMixin,DeleteView):
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     """
-      Delete post 
+    Delete post
     """
+
     model = Post
     success_url = "/blog/post/"
-
