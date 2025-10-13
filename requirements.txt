@@ -20,3 +20,4 @@ black
 flask8
 pytest
 pytest-django
+Faker
