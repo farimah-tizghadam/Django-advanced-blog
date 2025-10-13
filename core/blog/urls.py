@@ -10,6 +10,7 @@ urlpatterns = [
     # path('go-to-index', RedirectView.as_view(pattern_name='blog:index'),name='redirect-to-index'),
     # path('go-to-maktab/<int:pk>/', views.RedirectToMaktab.as_view(),name='redirect-to-maktabkhooneh'),
     path("post/", views.PostListView.as_view(), name="post-list"),
+    path("post/api/", views.PostListApiView.as_view(), name="post-list-api"),
     path(
         "post/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"
     ),
