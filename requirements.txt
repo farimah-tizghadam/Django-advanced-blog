@@ -19,7 +19,13 @@ django-mail-templated
 
 #refactoring and tests
 black
-flask8
+flake8
 pytest
 pytest-django
 Faker
+
+
+#backend proccess and cache
+redis
+celery
+django-celery-beat

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "corsheaders",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -173,3 +174,16 @@ EMAIL_USE_SSL = False  # Set to True if using SSL
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+#celery config
+
+CELERY_BROKER_URL = "redis://redis:6379/1"
+
+# CELERY_BEAT_SCHEDULE = {
+#     'send_email': {
+#         'task': 'accounts.tasks.sending_email',
+#         'schedule': 5,
+#         # 'arg':
+#         # 'kwargs'
+#     }
+# }
